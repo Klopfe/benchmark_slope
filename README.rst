@@ -1,4 +1,4 @@
-Benchmark repository for MCP
+Benchmark repository for SLOPE
 ==============================
 
 |Build Status| |Python 3.6+|
