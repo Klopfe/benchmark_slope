@@ -13,9 +13,9 @@ class Solver(BaseSolver):
     requirements = ['slope']
     references = []
 
-    def set_objective(self, X, y, alphas, fista=False, anderson=False):
+    def set_objective(self, X, y, alphas, anderson=False):
         self.X, self.y, self.alphas = X, y, alphas
-        self.fista, self.anderson = fista, anderson
+        self.anderson = anderson
 
     def run(self, n_iter):
         self.coef_, _, _, _ = prox_grad(
