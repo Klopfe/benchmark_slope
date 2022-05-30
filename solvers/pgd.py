@@ -19,8 +19,8 @@ class Solver(BaseSolver):
 
     def run(self, n_iter):
         self.coef_, _, _, _ = prox_grad(
-            self.X, self.y, self.alphas, fista=self.fista, max_epochs=n_iter, tol=1e-12,
-            anderson=self.anderson, verbose=False)
+            self.X, self.y, self.alphas, fista=self.fista, max_epochs=n_iter,
+            tol=1e-12, anderson=self.anderson, verbose=False, gap_freq=10)
 
     def get_result(self):
         return self.coef_
