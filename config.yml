@@ -1,0 +1,25 @@
+objective:
+  - SLOPE[q=0.2,reg=0.1]
+  - SLOPE[q=0.2,reg=0.01]
+  - SLOPE[q=0.2,reg=0.001]
+  - SLOPE[q=0.1,reg=0.1]
+  - SLOPE[q=0.1,reg=0.01]
+  - SLOPE[q=0.1,reg=0.001]
+  - SLOPE[q=0.05,reg=0.1]
+  - SLOPE[q=0.05,reg=0.01]
+  - SLOPE[q=0.05,reg=0.001]
+
+
+dataset: # dataset to run benchmark on
+  - breheny[dataset=Rhee2006]
+  - breheny[dataset=bcTCGA]
+
+solver: # list of example solvers to do benchmark
+  - hybrid
+  - admm
+  - pgd[fista=True]
+  - pgd[fista=False]
+  - anderson
+
+# note: use more repetitions to have quantiles on the plot
+n-repetitions: 1
