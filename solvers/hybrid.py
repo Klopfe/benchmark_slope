@@ -17,9 +17,9 @@ class Solver(BaseSolver):
         self.run(2)
 
     def run(self, n_iter):
-        self.coef_, _, _, _ = hybrid_cd(
+        self.coef_ = hybrid_cd(
             self.X, self.y, self.alphas, max_epochs=n_iter, verbose=False,
-            tol=1e-12, cluster_updates=self.cluster_updates)
+            tol=1e-12, cluster_updates=self.cluster_updates, fit_intercept=False)[0]
 
     def get_result(self):
         return self.coef_

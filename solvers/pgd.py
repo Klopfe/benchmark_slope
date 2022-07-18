@@ -2,7 +2,7 @@ from benchopt import BaseSolver
 from benchopt import safe_import_context
 
 with safe_import_context() as import_ctx:
-    from slope.solvers.pgd import prox_grad
+    from slope.solvers import prox_grad
 
 
 class Solver(BaseSolver):
@@ -18,9 +18,10 @@ class Solver(BaseSolver):
         self.anderson = anderson
 
     def run(self, n_iter):
-        self.coef_, _, _, _ = prox_grad(
+        self.coef_ = prox_grad(
             self.X, self.y, self.alphas, fista=self.fista, max_epochs=n_iter,
-            tol=1e-12, anderson=self.anderson, verbose=False, gap_freq=10)
+            tol=1e-12, fit_intercept=False, anderson=self.anderson,
+            verbose=False, gap_freq=10)[0]
 
     def get_result(self):
         return self.coef_
