@@ -27,7 +27,7 @@ class Objective(BaseObjective):
 
         if self.standardize:
             if sparse.issparse(X):
-                X = preprocessing.MaxAbsScaler().fit_transform(X).to_csc()
+                X = preprocessing.MaxAbsScaler().fit_transform(X).tocsc()
             else:
                 X = preprocessing.StandardScaler().fit_transform(X)
 
