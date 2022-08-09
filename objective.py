@@ -27,13 +27,14 @@ class Objective(BaseObjective):
 
         if self.standardize:
             if sparse.issparse(X):
-                X = preprocessing.MaxAbsScaler().fit_transform(X)
+                X = preprocessing.MaxAbsScaler().fit_transform(X).to_csc()
             else:
                 X = preprocessing.StandardScaler().fit_transform(X)
 
-        # NOTE(jolars): not sure if this is necessary, probably not
-        if X.flags.c_contiguous:
-            X = np.array(X, order="F")
+                # NOTE(jolars): not sure if this is necessary, probably not
+                if X.flags.c_contiguous:
+                    X = np.array(X, order="F")
+
 
         self.X, self.y = X, y
         self.n_samples, self.n_features = self.X.shape
