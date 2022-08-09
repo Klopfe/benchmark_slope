@@ -22,8 +22,8 @@ class Solver(BaseSolver):
     def run(self, n_iter):
         self.coef_, self.intercept_ = prox_grad(
             self.X, self.y, self.alphas, fista=self.fista, max_epochs=n_iter,
-            tol=1e-12, fit_intercept=self.fit_intercept, anderson=self.anderson,
-            verbose=False, gap_freq=10)[:2]
+            tol=1e-12, fit_intercept=self.fit_intercept,
+            anderson=self.anderson, verbose=False, gap_freq=10)[:2]
 
     def get_result(self):
         return np.hstack((self.intercept_, self.coef_))

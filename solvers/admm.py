@@ -21,8 +21,8 @@ class Solver(BaseSolver):
 
     def run(self, n_iter):
         self.coef_, self.intercept_ = admm(
-            self.X, self.y, self.alphas, fit_intercept=self.fit_intercept, tol=1e-12,
-            max_epochs=n_iter)[:2]
+            self.X, self.y, self.alphas, fit_intercept=self.fit_intercept,
+            tol=1e-12, max_epochs=n_iter)[:2]
 
     def get_result(self):
         return np.hstack((self.intercept_, self.coef_))
