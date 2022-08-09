@@ -35,7 +35,6 @@ class Objective(BaseObjective):
                 if X.flags.c_contiguous:
                     X = np.array(X, order="F")
 
-
         self.X, self.y = X, y
         self.n_samples, self.n_features = self.X.shape
         self.alphas = self._get_lambda_seq()
