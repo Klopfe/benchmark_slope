@@ -28,8 +28,6 @@ class Solver(BaseSolver):
             tol=1e-12,
             fit_intercept=self.fit_intercept,
             anderson=self.anderson,
-            verbose=False,
-            gap_freq=10,
         )[:2]
 
     def get_result(self):
