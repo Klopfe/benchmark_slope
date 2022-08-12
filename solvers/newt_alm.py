@@ -25,4 +25,4 @@ class Solver(BaseSolver):
         )[:2]
 
     def get_result(self):
-        return self.coef_
+        return np.hstack((self.intercept_, self.coef_))
