@@ -37,4 +37,3 @@ class Solver(BaseSolver):
 
     def get_result(self):
         return np.hstack((self.intercept_, self.coef_))
-
