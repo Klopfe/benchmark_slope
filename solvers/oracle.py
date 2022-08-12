@@ -22,7 +22,7 @@ class Solver(BaseSolver):
             tol=1e-14,
             fista=False,
             verbose=False,
-            fit_intercept=False,
+            fit_intercept=self.fit_intercept,
         )[0]
         self.run(2)
 
@@ -35,7 +35,7 @@ class Solver(BaseSolver):
             verbose=False,
             tol=1e-12,
             w_star=self.w_star,
-            fit_intercept=False,
+            fit_intercept=self.fit_intercept,
         )[:2]
 
     def get_result(self):
