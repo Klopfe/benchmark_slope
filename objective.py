@@ -2,7 +2,6 @@ import numpy as np
 from benchopt import BaseObjective
 from numpy.linalg import norm
 from scipy import stats
-from slope.utils import dual_norm_slope
 
 
 class Objective(BaseObjective):
