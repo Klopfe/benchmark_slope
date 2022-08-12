@@ -23,7 +23,6 @@ class Solver(BaseSolver):
             self.y,
             self.alphas,
             max_epochs=n_iter,
-            verbose=False,
             tol=1e-12,
             cluster_updates=self.cluster_updates,
             fit_intercept=self.fit_intercept,
