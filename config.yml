@@ -20,6 +20,7 @@ solver: # list of example solvers to do benchmark
   - pgd[fista=True]
   - pgd[fista=False]
   - anderson
+  - newt_alm
 
 # note: use more repetitions to have quantiles on the plot
 n-repetitions: 1
