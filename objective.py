@@ -25,22 +25,22 @@ class Objective(BaseObjective):
     def compute(self, res):
         intercept, beta = res[0], res[1:]
 
-        # compute residuals
         X, y = self.X, self.y
-        n_samples, n_features = X.shape
+        n_samples = X.shape[0]
 
+        # compute residuals
         diff = y - X @ beta - intercept
 
-        # compute primal objective
+        # compute primal
         p_obj = 1.0 / (2 * n_samples) * diff @ diff + np.sum(
             self.alphas * np.sort(np.abs(beta))[::-1]
         )
 
-        # Compute dual
+        # compute dual
         theta = diff
         theta /= max(1, self._dual_norm_slope(theta, self.alphas))
-
         d_obj = (norm(y) ** 2 - norm(y - theta * n_samples) ** 2) / (2 * n_samples)
+
         return dict(value=p_obj, duality_gap=p_obj - d_obj)
 
     def to_dict(self):
