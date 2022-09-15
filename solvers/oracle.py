@@ -18,8 +18,8 @@ class Solver(BaseSolver):
             X,
             y,
             alphas,
-            max_epochs=10_000,
-            tol=1e-14,
+            max_epochs=50_000,
+            tol=1e-12,
             fista=False,
             fit_intercept=self.fit_intercept,
         )[0]

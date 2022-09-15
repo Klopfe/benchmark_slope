@@ -14,7 +14,7 @@ class Dataset(BaseDataset):
     parameters = {
         'dataset': [
             "rcv1.binary", "news20.binary", "leukemia", "real-sim",
-            "url"],
+            "url", "YearPredictionMSD"],
     }
 
     install_cmd = 'conda'
