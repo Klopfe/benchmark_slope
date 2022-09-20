@@ -18,17 +18,26 @@ class Solver(BaseSolver):
         self.fit_intercept = fit_intercept
 
         # cache numba stuff
-        self.run(2)
+        _, _ = newt_alm(
+            self.X,
+            self.y,
+            self.alphas,
+            fit_intercept=self.fit_intercept,
+            tol=1e-12,
+            solver="standard",
+            callback=None,
+            max_epochs=2
+        )[:2]
 
-    def run(self, n_iter):
+    def run(self, callback):
         self.coef_, self.intercept_ = newt_alm(
             self.X,
             self.y,
             self.alphas,
             fit_intercept=self.fit_intercept,
             tol=1e-12,
-            max_epochs=n_iter,
-            solver="standard"
+            solver="standard",
+            callback=callback
         )[:2]
 
     @staticmethod

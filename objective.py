@@ -27,7 +27,6 @@ class Objective(BaseObjective):
 
         X, y = self.X, self.y
         n_samples = X.shape[0]
-
         # compute residuals
         diff = y - X @ beta - intercept
 

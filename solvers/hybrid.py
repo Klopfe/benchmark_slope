@@ -17,20 +17,31 @@ class Solver(BaseSolver):
     def set_objective(self, X, y, alphas, fit_intercept):
         self.X, self.y, self.alphas = X, y, alphas
         self.fit_intercept = fit_intercept
-        self.run(2)
+        _, _ = hybrid_cd(
+            self.X,
+            self.y,
+            self.alphas,
+            tol=1e-12,
+            max_epochs=2,
+            cluster_updates=self.cluster_updates,
+            fit_intercept=self.fit_intercept,
+            use_reduced_X=False,
+            callback=None
+        )[:2]
 
-    def run(self, n_iter):
+    def run(self, callback):
         reduced_X = False if issparse(self.X) else True
         self.coef_, self.intercept_ = hybrid_cd(
             self.X,
             self.y,
             self.alphas,
-            max_epochs=n_iter,
             tol=1e-12,
             cluster_updates=self.cluster_updates,
             fit_intercept=self.fit_intercept,
-            use_reduced_X=reduced_X
+            use_reduced_X=reduced_X,
+            callback=callback
         )[:2]
 
     def get_result(self):
+        print(self.intercept_)
         return np.hstack((self.intercept_, self.coef_))

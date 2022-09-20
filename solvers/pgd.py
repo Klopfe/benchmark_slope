@@ -8,6 +8,7 @@ with safe_import_context() as import_ctx:
 class Solver(BaseSolver):
     name = "pgd"
     parameters = {"fista": [False, True]}
+    stopping_strategy = 'callback'
 
     install_cmd = "conda"
     requirements = ["slope"]
@@ -18,16 +19,16 @@ class Solver(BaseSolver):
         self.anderson = anderson
         self.fit_intercept = fit_intercept
 
-    def run(self, n_iter):
+    def run(self, callback):
         self.coef_, self.intercept_ = prox_grad(
             self.X,
             self.y,
             self.alphas,
             fista=self.fista,
-            max_epochs=n_iter,
             tol=1e-12,
             fit_intercept=self.fit_intercept,
             anderson=self.anderson,
+            callback=callback
         )[:2]
 
     def get_result(self):

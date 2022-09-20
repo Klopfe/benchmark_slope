@@ -24,18 +24,17 @@ class Solver(BaseSolver):
             fista=False,
             fit_intercept=self.fit_intercept,
         )[0]
-        self.run(2)
 
-    def run(self, n_iter):
+    def run(self, callback):
         self.coef_, self.intercept_ = oracle_cd(
             self.X,
             self.y,
             self.alphas,
-            max_epochs=n_iter,
-            tol=1e-12,
             w_star=self.w_star,
             fit_intercept=self.fit_intercept,
+            callback=callback
         )[:2]
 
     def get_result(self):
+        print(self.intercept_)
         return np.hstack((self.intercept_, self.coef_))

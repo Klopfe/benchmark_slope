@@ -16,16 +16,16 @@ class Solver(BaseSolver):
         self.X, self.y, self.alphas = X, y, alphas
         self.fit_intercept = fit_intercept
 
-    def run(self, n_iter):
+    def run(self, callback):
         self.coef_, self.intercept_ = prox_grad(
             self.X,
             self.y,
             self.alphas,
             fista=False,
-            max_epochs=n_iter,
             tol=1e-12,
             fit_intercept=self.fit_intercept,
             anderson=True,
+            callback=callback
         )[:2]
 
     def get_result(self):
