@@ -8,7 +8,7 @@ with safe_import_context() as import_ctx:
 
 class Solver(BaseSolver):
     name = "admm"
-    stopping_strategy = "iteration"
+    stopping_strategy = 'callback'
     stopping_criterion = SufficientDescentCriterion(eps=1e-10, patience=5)
     install_cmd = "conda"
     requirements = ["slope"]

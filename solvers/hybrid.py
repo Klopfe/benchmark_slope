@@ -12,6 +12,7 @@ class Solver(BaseSolver):
     requirements = ["slope"]
     parameters = {"cluster_updates": [True]}
     references = []
+    stopping_strategy = 'callback'
 
     def set_objective(self, X, y, alphas, fit_intercept):
         self.X, self.y, self.alphas = X, y, alphas
@@ -19,7 +20,7 @@ class Solver(BaseSolver):
         self.run(2)
 
     def run(self, n_iter):
-        # reduced_X = False if issparse(self.X) else True
+        reduced_X = False if issparse(self.X) else True
         self.coef_, self.intercept_ = hybrid_cd(
             self.X,
             self.y,
@@ -28,7 +29,7 @@ class Solver(BaseSolver):
             tol=1e-12,
             cluster_updates=self.cluster_updates,
             fit_intercept=self.fit_intercept,
-            use_reduced_X=False
+            use_reduced_X=reduced_X
         )[:2]
 
     def get_result(self):

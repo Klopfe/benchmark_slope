@@ -7,7 +7,7 @@ with safe_import_context() as import_ctx:
 
 class Solver(BaseSolver):
     name = "newt_alm"
-    stopping_strategy = "iteration"
+    stopping_strategy = 'callback'
 
     install_cmd = "conda"
     requirements = ["slope"]
@@ -28,6 +28,7 @@ class Solver(BaseSolver):
             fit_intercept=self.fit_intercept,
             tol=1e-12,
             max_epochs=n_iter,
+            solver="standard"
         )[:2]
 
     @staticmethod

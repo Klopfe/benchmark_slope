@@ -10,6 +10,7 @@ class Solver(BaseSolver):
     install_cmd = "conda"
     requirements = ["slope"]
     references = []
+    stopping_strategy = 'callback'
 
     def set_objective(self, X, y, alphas, fit_intercept):
         self.X, self.y, self.alphas = X, y, alphas

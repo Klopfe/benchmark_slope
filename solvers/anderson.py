@@ -7,7 +7,7 @@ with safe_import_context() as import_ctx:
 
 class Solver(BaseSolver):
     name = "anderson"
-
+    stopping_strategy = 'callback'
     install_cmd = "conda"
     requirements = ["slope"]
     references = []
