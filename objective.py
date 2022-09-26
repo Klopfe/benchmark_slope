@@ -7,7 +7,7 @@ from scipy import stats
 class Objective(BaseObjective):
     name = "SLOPE"
     parameters = {
-        "reg": [0.25, 0.1, 0.01],
+        "reg": [0.1, 0.05, 0.01],
         "q": [0.2, 0.1, 0.05],
         "fit_intercept": [True, False],
     }
