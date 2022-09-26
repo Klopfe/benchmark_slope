@@ -3,14 +3,12 @@ from benchopt import BaseSolver, safe_import_context
 with safe_import_context() as import_ctx:
     import numpy as np
     from slope.solvers.hybrid import hybrid_cd
-    from scipy.sparse import issparse
 
 
 class Solver(BaseSolver):
     name = "hybrid"
     install_cmd = "conda"
     requirements = ["slope"]
-    parameters = {"cluster_updates": [True]}
     references = []
     stopping_strategy = 'callback'
 
@@ -23,20 +21,20 @@ class Solver(BaseSolver):
             self.alphas,
             tol=1e-12,
             max_epochs=2,
-            cluster_updates=self.cluster_updates,
+            cluster_updates=True,
             fit_intercept=self.fit_intercept,
             use_reduced_X=False,
             callback=None
         )[:2]
 
     def run(self, callback):
-        reduced_X = False if issparse(self.X) else True
+        reduced_X = False
         self.coef_, self.intercept_ = hybrid_cd(
             self.X,
             self.y,
             self.alphas,
             tol=1e-12,
-            cluster_updates=self.cluster_updates,
+            cluster_updates=True,
             fit_intercept=self.fit_intercept,
             use_reduced_X=reduced_X,
             callback=callback
