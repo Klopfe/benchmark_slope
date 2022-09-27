@@ -3,8 +3,11 @@ from benchopt import BaseObjective, safe_import_context
 with safe_import_context() as import_ctx:
     import numpy as np
     from numpy.linalg import norm
-    from scipy import stats
+    from scipy import sparse, stats
+    from sklearn.feature_selection import VarianceThreshold
     from sklearn.linear_model import LinearRegression
+    from sklearn.preprocessing import MaxAbsScaler, StandardScaler
+
     from slope.solvers import hybrid_cd
 
 
@@ -21,80 +24,7 @@ class Objective(BaseObjective):
         self.fit_intercept = fit_intercept
         self.q = q
 
-    def set_data(self, X, y):
-        self.X, self.y = X, y
-        self.n_samples, self.n_features = X.shape
-
-        lambda_min_ratio = 1e-2 if self.n_samples < self.n_features else 1e-4
-
-        lambdas = self._get_lambda_seq()
-
-        alphas = np.geomspace(1, lambda_min_ratio, 100)
-
-        r = y - np.mean(y) if self.fit_intercept else y.copy()
-        null_dev = 0.5 * np.linalg.norm(r) ** 2
-        dev_ratio_target = self.dev_ratio
-
-        # if n > p, find R2 of OLS and take a fraction of that
-        if self.n_samples > self.n_features:
-            r2_full = (
-                LinearRegression(fit_intercept=self.fit_intercept).fit(X, y).score(X, y)
-            )
-            dev_ratio_target = self.dev_ratio * r2_full
-
-        w = np.zeros(self.n_features)
-        intercept = 0.0
-
-        def f(reg, w_start, intercept_start):
-            w, intercept = hybrid_cd(
-                X,
-                y,
-                lambdas * reg,
-                w_start=w_start,
-                intercept_start=intercept_start,
-                tol=1e-4,
-                fit_intercept=self.fit_intercept,
-                use_reduced_X=False,
-            )[:2]
-
-            dev = 0.5 * np.linalg.norm(y - X @ w - intercept) ** 2
-            dev_ratio = 1 - dev / null_dev
-
-            return dev_ratio - dev_ratio_target, w, intercept
-
-        for i in range(len(alphas)):
-            f_i, w, intercept = f(alphas[i], w, intercept)
-            if f_i >= 0:
-                hi = alphas[i - 1] if i > 0 else 1.0
-                lo = alphas[i]
-                break
-
-        # bisect to find dev_ratio close to dev_ratio_target
-        a = lo
-        b = hi
-
-        it_max = 100
-        for it in range(it_max):
-            c = (a + b) / 2
-
-            f_c, w, intercept = f(c, w, intercept)
-
-            if abs(f_c) <= 0.005:
-                reg = c
-                break
-
-            f_a, _, _ = f(a, w, intercept)
-
-            if np.sign(f_c) == np.sign(f_a):
-                a = c
-            else:
-                b = c
-
-            if it == it_max - 1:
-                raise ValueError("bisection did not converge")
-
-        print(f"reg: {reg}, dev_ratio: {f_c + dev_ratio_target}")
-
+    def set_data(self, X, y, a):
         self.alphas = lambdas * reg
 
     def compute(self, res):
