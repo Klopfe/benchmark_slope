@@ -1,6 +1,5 @@
-from benchopt import BaseDataset
+from benchopt import BaseDataset, safe_import_context
 
-from benchopt import safe_import_context
 with safe_import_context() as import_ctx:
     from slope.data import fetch_breheny
 
@@ -42,7 +41,7 @@ class Dataset(BaseDataset):
     def get_data(self):
 
         # if self.X is None:
-        self.X, self.y = fetch_breheny(self.dataset)
+        self.X, self.y = fetch_breheny(self.dataset, min_nnz=3)
 
         data = dict(X=self.X, y=self.y)
 
