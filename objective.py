@@ -26,8 +26,10 @@ class Objective(BaseObjective):
         X = VarianceThreshold().fit_transform(X)
 
         # standardize
-        scaler = MaxAbsScaler if sparse.issparse(X) else StandardScaler
-        X = scaler().fit_transform(X)
+        if sparse.issparse(X):
+            X = MaxAbsScaler().fit_transform(X).tocsc()
+        else:
+            X = StandardScaler().fit_transform(X)
 
         self.X, self.y = X, y
 
