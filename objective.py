@@ -3,7 +3,9 @@ from benchopt import BaseObjective, safe_import_context
 with safe_import_context() as import_ctx:
     import numpy as np
     from numpy.linalg import norm
-    from scipy import stats
+    from scipy import sparse, stats
+    from sklearn.feature_selection import VarianceThreshold
+    from sklearn.preprocessing import MaxAbsScaler, StandardScaler
 
 
 class Objective(BaseObjective):
@@ -20,7 +22,15 @@ class Objective(BaseObjective):
         self.fit_intercept = fit_intercept
 
     def set_data(self, X, y):
+        # remove zero variance predictors
+        X = VarianceThreshold().fit_transform(X)
+
+        # standardize
+        scaler = MaxAbsScaler if sparse.issparse(X) else StandardScaler
+        X = scaler().fit_transform(X)
+
         self.X, self.y = X, y
+
         self.n_samples, self.n_features = self.X.shape
         self.alphas = self._get_lambda_seq()
 
