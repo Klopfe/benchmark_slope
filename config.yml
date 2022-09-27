@@ -1,13 +1,12 @@
 objective:
-  # - SLOPE[fit_intercept=True,q=0.1,reg=0.01]
-  # - SLOPE[fit_intercept=True,q=0.2,reg=0.01]
-  # - SLOPE[fit_intercept=True,q=0.05,reg=0.01]
+  # - SLOPE[fit_intercept=True,q=0.1,reg=0.02]
+  # - SLOPE[fit_intercept=True,q=0.2,reg=0.02]
+  # - SLOPE[fit_intercept=True,q=0.05,reg=0.02]
   - SLOPE[fit_intercept=True,q=0.1,reg=0.1]
   # - SLOPE[fit_intercept=True,q=0.2,reg=0.1]
   # - SLOPE[fit_intercept=True,q=0.05,reg=0.1]
-  # - SLOPE[fit_intercept=True,q=0.1,reg=0.05]
-  # - SLOPE[fit_intercept=True,q=0.2,reg=0.25]
-  # - SLOPE[fit_intercept=True,q=0.05,reg=0.25]
+  # - SLOPE[fit_intercept=True,q=0.2,reg=0.5]
+  # - SLOPE[fit_intercept=True,q=0.05,reg=0.5]
 dataset: # dataset to run benchmark on
   - breheny[dataset=Rhee2006]
   # - breheny[dataset=bcTCGA]
