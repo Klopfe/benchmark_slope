@@ -1,7 +1,9 @@
-import numpy as np
-from benchopt import BaseObjective
-from numpy.linalg import norm
-from scipy import stats
+from benchopt import BaseObjective, safe_import_context
+
+with safe_import_context() as import_ctx:
+    import numpy as np
+    from numpy.linalg import norm
+    from scipy import stats
 
 
 class Objective(BaseObjective):
