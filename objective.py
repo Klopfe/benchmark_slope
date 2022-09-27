@@ -14,7 +14,12 @@ with safe_import_context() as import_ctx:
 class Objective(BaseObjective):
     name = "SLOPE"
     parameters = {
+<<<<<<< HEAD
         "dev_ratio": [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9],
+=======
+        "dev_ratio": [0.01, 0.1, 0.5],
+        "q": [0.2, 0.1, 0.05],
+>>>>>>> 9e6bcd37b6e15f9d831a1b736e3d6ca9cb076125
         "fit_intercept": [True, False],
         "q": [0.2, 0.1, 0.05],
     }
