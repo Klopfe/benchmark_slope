@@ -1,0 +1,20 @@
+objective:
+  - SLOPE[dev_ratio=0.3,fit_intercept=True,q=0.2]
+  - SLOPE[dev_ratio=0.6,fit_intercept=True,q=0.2]
+  - SLOPE[dev_ratio=0.99,fit_intercept=True,q=0.2]
+dataset: # dataset to run benchmark on
+  - breheny[dataset=Rhee2006]
+  - breheny[dataset=bcTCGA]
+  # - libsvm[dataset=rcv1.binary]
+  # - libsvm[dataset=news20.binary]
+  # - simulated[X_density=1.0,density=0.001,n_features=20000,n_samples=200]
+  # - simulated[X_density=1.0,density=0.04,n_features=1000,n_samples=20000]
+  # - Simulated[X_density=0.001,density=1e-05,n_features=2000000,n_samples=200]
+solver: # list of example solvers to do benchmark
+  - hybrid
+  - admm
+  - pgd[fista=True]
+  # - anderson
+
+# note: use more repetitions to have quantiles on the plot
+n-repetitions: 1

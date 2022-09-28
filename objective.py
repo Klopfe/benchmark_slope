@@ -4,37 +4,26 @@ with safe_import_context() as import_ctx:
     import numpy as np
     from numpy.linalg import norm
     from scipy import sparse, stats
-    from sklearn.feature_selection import VarianceThreshold
-    from sklearn.preprocessing import MaxAbsScaler, StandardScaler
 
 
 class Objective(BaseObjective):
     name = "SLOPE"
     parameters = {
-        "reg": [0.5, 0.1, 0.02],
-        "q": [0.2, 0.1, 0.05],
-        "fit_intercept": [True, False],
+        "dev_ratio": [0.3, 0.6, 0.99],
+        "q": [0.2],
+        "fit_intercept": [True],
     }
 
-    def __init__(self, reg, q, fit_intercept):
+    def __init__(self, dev_ratio, q, fit_intercept):
+        self.dev_ratio = dev_ratio
         self.q = q
-        self.reg = reg
         self.fit_intercept = fit_intercept
 
-    def set_data(self, X, y):
+    def set_data(self, X, y, regs_dict):
         # remove zero variance predictors
-        X = VarianceThreshold().fit_transform(X)
-
-        # standardize
-        if sparse.issparse(X):
-            X = MaxAbsScaler().fit_transform(X).tocsc()
-        else:
-            X = StandardScaler().fit_transform(X)
-
         self.X, self.y = X, y
-
         self.n_samples, self.n_features = self.X.shape
-        self.alphas = self._get_lambda_seq()
+        self.alphas = self._get_lambda_seq() * regs_dict[self.dev_ratio]
 
     def compute(self, res):
         intercept, beta = res[0], res[1:]
@@ -77,4 +66,4 @@ class Objective(BaseObjective):
             (self.y - self.fit_intercept * np.mean(self.y)) / len(self.y), alphas_seq
         )
 
-        return alpha_max * alphas_seq * self.reg
+        return alpha_max * alphas_seq
