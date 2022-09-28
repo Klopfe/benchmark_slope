@@ -31,7 +31,7 @@ class Dataset(BaseDataset):
     def get_data(self):
 
         # if self.X is None:
-        self.X, self.y = fetch_libsvm(self.dataset, min_nnz=3)
+        X, y = fetch_libsvm(self.dataset, min_nnz=3)
 
         # Standardize with mean and standard deviation for dense data and scale with
         # maximum absolute value otherwise
@@ -48,4 +48,6 @@ class Dataset(BaseDataset):
 
         regs_dict = dict(zip(dev_ratios, regs))
 
-        return dict(X=X, y=y, regs_dict=regs_dict)
+        self.X, self.y = X, y
+
+        return dict(X=self.X, y=self.y, regs_dict=regs_dict)

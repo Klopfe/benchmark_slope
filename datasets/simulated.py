@@ -54,4 +54,6 @@ class Dataset(BaseDataset):
 
         regs_dict = dict(zip(dev_ratios, regs))
 
-        return dict(X=X, y=y, regs_dict=regs_dict)
+        self.X, self.y = X, y
+
+        return dict(X=self.X, y=self.y, regs_dict=regs_dict)
