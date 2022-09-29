@@ -24,6 +24,15 @@ class Solver(BaseSolver):
             fista=False,
             fit_intercept=self.fit_intercept,
         )[0]
+        _, _ = oracle_cd(
+            self.X,
+            self.y,
+            self.alphas,
+            w_star=self.w_star,
+            fit_intercept=self.fit_intercept,
+            callback=None,
+            max_epochs=2
+        )[:2]
 
     def run(self, callback):
         self.coef_, self.intercept_ = oracle_cd(
