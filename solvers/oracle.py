@@ -41,7 +41,9 @@ class Solver(BaseSolver):
             self.alphas,
             w_star=self.w_star,
             fit_intercept=self.fit_intercept,
-            callback=callback
+            callback=callback,
+            verbose=2,
+            tol=1e-12
         )[:2]
 
     def get_result(self):

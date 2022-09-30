@@ -10,7 +10,7 @@ from scipy import sparse
 class Objective(BaseObjective):
     name = "SLOPE"
     parameters = {
-        "reg": [0.5, 0.1, 0.02],
+        "reg": [0.25, 0.1, 0.02],
         "q": [0.2, 0.1, 0.05],
         "fit_intercept": [True, False],
     }
