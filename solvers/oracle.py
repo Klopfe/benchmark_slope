@@ -2,7 +2,7 @@ from benchopt import BaseSolver, safe_import_context
 
 with safe_import_context() as import_ctx:
     import numpy as np
-    from slope.solvers import oracle_cd, prox_grad
+    from slope.solvers import oracle_cd, hybrid_cd
 
 
 class Solver(BaseSolver):
@@ -15,13 +15,12 @@ class Solver(BaseSolver):
     def set_objective(self, X, y, alphas, fit_intercept):
         self.X, self.y, self.alphas = X, y, alphas
         self.fit_intercept = fit_intercept
-        self.w_star = prox_grad(
+        self.w_star = hybrid_cd(
             X,
             y,
             alphas,
             max_epochs=50_000,
             tol=1e-12,
-            fista=False,
             fit_intercept=self.fit_intercept,
         )[0]
         _, _ = oracle_cd(
