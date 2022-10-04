@@ -27,7 +27,6 @@ class Solver(BaseSolver):
         )[:2]
 
     def run(self, callback):
-        reduced_X = False
         self.coef_, self.intercept_ = hybrid_cd(
             self.X,
             self.y,
