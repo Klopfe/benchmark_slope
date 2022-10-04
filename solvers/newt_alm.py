@@ -36,7 +36,7 @@ class Solver(BaseSolver):
             self.alphas,
             fit_intercept=self.fit_intercept,
             tol=1e-12,
-            solver="standard",
+            solver="auto",
             callback=callback
         )[:2]
 
