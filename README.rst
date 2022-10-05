@@ -15,7 +15,8 @@ $$ J(\\beta, \\lambda) = \\sum_{j=1}^p \\lambda_j \| \\beta_{(j)}\| $$
 
 with $\\lambda_1 \\geq \\lambda_2 \\geq ... \\geq \\lambda_p$ and $\|\\beta_{(1)}\| \\geq \|\\beta_{(2)}\| \\geq ... \\geq \|\\beta_{(p)}\|$.
 
-We note $n$ (or n_samples) stands for the number of samples, $p$ (or n_features) stands for the number of features and $X\\in \\mathbb{R}^{n\\times p}$ and $y\\in \\mathbb{R}^n$.
+We note $n$ (or n_samples) the number of samples and $p$ (or n_features) the number of features. 
+We also have that $X\\in \\mathbb{R}^{n\\times p}$ and $y\\in \\mathbb{R}^n$.
 
 
 
