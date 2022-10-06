@@ -3,7 +3,7 @@ from benchopt import BaseObjective, safe_import_context
 with safe_import_context() as import_ctx:
     import numpy as np
     from numpy.linalg import norm
-    from scipy import sparse, stats
+    from scipy import stats
 
 
 class Objective(BaseObjective):
