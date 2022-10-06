@@ -7,25 +7,18 @@ BenchOpt is a package to simplify and make more transparent and
 reproducible the comparisons of optimization algorithms.
 Regression with the Sorted L-One Penalized Estimation (SLOPE) estimator which consists in solving the following program:
 
-.. image:: images/opt_slope.png
+$$ \\min_{\\beta} \\, \\tfrac{1}{2n} \\Vert y - X\\beta \\Vert^2_2 + J(\\beta, \\lambda) $$
 
-with the penalty
+where 
 
-.. image:: images/penalty.png
+$$ J(\\beta, \\lambda) = \\sum_{j=1}^p \\lambda_j \| \\beta_{(j)}\| $$
 
-with 
+with $\\lambda_1 \\geq \\lambda_2 \\geq ... \\geq \\lambda_p$ and $\|\\beta_{(1)}\| \\geq \|\\beta_{(2)}\| \\geq ... \\geq \|\\beta_{(p)}\|$.
 
-.. image:: images/lambda_seq.png
+We note $n$ (or n_samples) the number of samples and $p$ (or n_features) the number of features. 
+We also have that $X\\in \\mathbb{R}^{n\\times p}$ and $y\\in \\mathbb{R}^n$.
 
-and
 
-.. image:: images/beta_seq.png
-
-where n (or n_samples) stands for the number of samples, p (or n_features) stands for the number of features and
-
-.. math::
-
- y \in \mathbb{R}^n, X = [x_1^\top, \dots, x_n^\top]^\top \in \mathbb{R}^{n \times p}
 
 Install
 --------
