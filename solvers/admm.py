@@ -9,6 +9,10 @@ with safe_import_context() as import_ctx:
 class Solver(BaseSolver):
     name = "admm"
     stopping_strategy = 'callback'
+    parameters = {
+        "adaptive_rho": [False, True],
+        "rho": [1, 10, 100]}
+
     install_cmd = "conda"
     requirements = ["slope"]
     references = []
@@ -19,12 +23,18 @@ class Solver(BaseSolver):
         self.fit_intercept = fit_intercept
 
     def run(self, callback):
+        if self.adaptive_rho:
+            rho = 1.
+        else:
+            rho = self.rho
         self.coef_, self.intercept_ = admm(
             self.X,
             self.y,
             self.alphas,
             fit_intercept=self.fit_intercept,
             tol=1e-12,
+            adaptive_rho=self.adaptive_rho,
+            rho=rho,
             callback=callback
         )[:2]
 
