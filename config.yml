@@ -14,10 +14,10 @@ dataset: # dataset to run benchmark on
 
 solver: # list of example solvers to do benchmark
   - hybrid
-  - admm[adaptive_rho=False, rho=10]
-  - admm[adaptive_rho=False, rho=100]
-  - admm[adaptive_rho=False, rho=1000]
-  - admm[adaptive_rho=True, rho=10]
+  - admm[adaptive_rho=False,rho=10]
+  - admm[adaptive_rho=False,rho=100]
+  - admm[adaptive_rho=False,rho=1000]
+  - admm[adaptive_rho=True,rho=10]
   - pgd[fista=True]
   - pgd[fista=False]
   - oracle
